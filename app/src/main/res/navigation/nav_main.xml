@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/start">
+
+    <fragment
+        android:id="@+id/start"
+        android:name="com.example.assignmenttemplateproject.fragment.Start"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start" >
+        <action
+            android:id="@+id/action_start_to_login"
+            app:destination="@id/login" />
+    </fragment>
+    <fragment
+        android:id="@+id/login"
+        android:name="com.example.assignmenttemplateproject.fragment.Login"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_login_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/home2"
+        android:name="com.example.assignmenttemplateproject.fragment.Home"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_home2_to_createNewUser"
+            app:destination="@id/createNewUser" />
+        <action
+            android:id="@+id/action_home2_to_categoryBook"
+            app:destination="@id/categoryBook" />
+        <action
+            android:id="@+id/action_home2_to_createNewBook"
+            app:destination="@id/createNewBook" />
+        <action
+            android:id="@+id/action_home2_to_invoice"
+            app:destination="@id/invoice" />
+    </fragment>
+    <fragment
+        android:id="@+id/createNewUser"
+        android:name="com.example.assignmenttemplateproject.fragment.CreateNewUser"
+        android:label="fragment_create_new_user"
+        tools:layout="@layout/fragment_create_new_user" >
+        <action
+            android:id="@+id/action_createNewUser_to_listUser2"
+            app:destination="@id/listUser2" />
+    </fragment>
+    <fragment
+        android:id="@+id/listUser2"
+        android:name="com.example.assignmenttemplateproject.fragment.ListUser"
+        android:label="fragment_list_user"
+        tools:layout="@layout/fragment_list_user" >
+        <action
+            android:id="@+id/action_listUser2_to_updateUserInfo2"
+            app:destination="@id/updateUserInfo2" />
+        <action
+            android:id="@+id/action_listUser2_to_login"
+            app:destination="@id/login" />
+        <action
+            android:id="@+id/action_listUser2_to_changePassword"
+            app:destination="@id/changePassword" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateUserInfo2"
+        android:name="com.example.assignmenttemplateproject.fragment.UpdateUserInfo"
+        android:label="fragment_update_user_info2"
+        tools:layout="@layout/fragment_update_user_info2" />
+    <fragment
+        android:id="@+id/changePassword"
+        android:name="com.example.assignmenttemplateproject.fragment.ChangePassword"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/categoryBook"
+        android:name="com.example.assignmenttemplateproject.fragment.CreateNewCategoryBook"
+        android:label="fragment_category_book"
+        tools:layout="@layout/fragment_category_book" >
+        <action
+            android:id="@+id/action_categoryBook_to_listCategoryBook"
+            app:destination="@id/listCategoryBook" />
+    </fragment>
+    <fragment
+        android:id="@+id/listCategoryBook"
+        android:name="com.example.assignmenttemplateproject.fragment.ListCategoryBook"
+        android:label="fragment_list_category_book"
+        tools:layout="@layout/fragment_list_category_book" >
+        <action
+            android:id="@+id/action_listCategoryBook_to_updateCategory"
+            app:destination="@id/updateCategory" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateCategory"
+        android:name="com.example.assignmenttemplateproject.fragment.UpdateCategory"
+        android:label="fragment_update_category"
+        tools:layout="@layout/fragment_update_category" />
+    <fragment
+        android:id="@+id/createNewBook"
+        android:name="com.example.assignmenttemplateproject.fragment.CreateNewBook"
+        android:label="fragment_create_new_book"
+        tools:layout="@layout/fragment_create_new_book" >
+        <action
+            android:id="@+id/action_createNewBook_to_listBook"
+            app:destination="@id/listBook" />
+    </fragment>
+    <fragment
+        android:id="@+id/listBook"
+        android:name="com.example.assignmenttemplateproject.fragment.ListBook"
+        android:label="fragment_list_book"
+        tools:layout="@layout/fragment_list_book" >
+        <action
+            android:id="@+id/action_listBook_to_updateBook"
+            app:destination="@id/updateBook" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateBook"
+        android:name="com.example.assignmenttemplateproject.fragment.UpdateBook"
+        android:label="fragment_update_book"
+        tools:layout="@layout/fragment_update_book" />
+    <fragment
+        android:id="@+id/invoice"
+        android:name="com.example.assignmenttemplateproject.fragment.CreateNewInvoice"
+        android:label="fragment_create_new_invoice"
+        tools:layout="@layout/fragment_create_new_invoice" >
+        <action
+            android:id="@+id/action_createNewInvoice_to_ListInvoice"
+            app:destination="@id/listInvoice" />
+    </fragment>
+    <fragment
+        android:id="@+id/listInvoice"
+        android:name="com.example.assignmenttemplateproject.fragment.ListInvoice"
+        android:label="fragment_list_invoice"
+        tools:layout="@layout/fragment_list_invoice" >
+        <action
+            android:id="@+id/action_listInvoice_to_updateInvoice"
+            app:destination="@id/updateInvoice" />
+        <action
+            android:id="@+id/action_listInvoice_to_createNewInvoiceDetails"
+            app:destination="@id/createNewInvoiceDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateInvoice"
+        android:name="com.example.assignmenttemplateproject.fragment.UpdateInvoice"
+        android:label="fragment_update_invoice"
+        tools:layout="@layout/fragment_update_invoice" />
+    <fragment
+        android:id="@+id/createNewInvoiceDetails"
+        android:name="com.example.assignmenttemplateproject.fragment.CreateNewInvoiceDetails"
+        android:label="fragment_create_new_invoice_details"
+        tools:layout="@layout/fragment_create_new_invoice_details" />
+</navigation>

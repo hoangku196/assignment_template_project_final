@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.Home">
+
+    <ImageView
+        android:id="@+id/ivCreateNewUser"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/emthree"
+        app:layout_constraintBottom_toTopOf="@+id/ivCreateNewBook"
+        app:layout_constraintEnd_toStartOf="@+id/ivCreateNewCategoryBook"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Người dùng"
+        app:layout_constraintEnd_toEndOf="@+id/ivCreateNewUser"
+        app:layout_constraintStart_toStartOf="@+id/ivCreateNewUser"
+        app:layout_constraintTop_toBottomOf="@+id/ivCreateNewUser" />
+
+    <ImageView
+        android:id="@+id/ivCreateNewBook"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/bookicon"
+        app:layout_constraintBottom_toTopOf="@+id/viewBestSelling"
+        app:layout_constraintEnd_toEndOf="@+id/ivCreateNewUser"
+        app:layout_constraintStart_toStartOf="@+id/ivCreateNewUser"
+        app:layout_constraintTop_toBottomOf="@+id/ivCreateNewUser" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sách"
+        app:layout_constraintEnd_toEndOf="@+id/ivCreateNewBook"
+        app:layout_constraintStart_toStartOf="@+id/ivCreateNewBook"
+        app:layout_constraintTop_toBottomOf="@+id/ivCreateNewBook" />
+
+    <ImageView
+        android:id="@+id/viewBestSelling"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/money_icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ivCreateNewBook"
+        app:layout_constraintStart_toStartOf="@+id/ivCreateNewBook"
+        app:layout_constraintTop_toBottomOf="@+id/ivCreateNewBook" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sách bán chạy"
+        app:layout_constraintEnd_toEndOf="@+id/viewBestSelling"
+        app:layout_constraintStart_toStartOf="@+id/viewBestSelling"
+        app:layout_constraintTop_toBottomOf="@+id/viewBestSelling" />
+
+    <ImageView
+        android:id="@+id/ivCreateNewCategoryBook"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/cateicon"
+        app:layout_constraintBottom_toTopOf="@+id/ivCreateNewInvoice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivCreateNewUser"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thể loại"
+        app:layout_constraintEnd_toEndOf="@+id/ivCreateNewCategoryBook"
+        app:layout_constraintStart_toStartOf="@+id/ivCreateNewCategoryBook"
+        app:layout_constraintTop_toBottomOf="@+id/ivCreateNewCategoryBook" />
+
+    <ImageView
+        android:id="@+id/ivCreateNewInvoice"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/hdicon"
+        app:layout_constraintBottom_toTopOf="@+id/viewStatistic"
+        app:layout_constraintEnd_toEndOf="@+id/ivCreateNewCategoryBook"
+        app:layout_constraintStart_toStartOf="@+id/ivCreateNewCategoryBook"
+        app:layout_constraintTop_toBottomOf="@+id/ivCreateNewCategoryBook" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hóa đơn"
+        app:layout_constraintEnd_toEndOf="@+id/ivCreateNewInvoice"
+        app:layout_constraintStart_toStartOf="@+id/ivCreateNewInvoice"
+        app:layout_constraintTop_toBottomOf="@+id/ivCreateNewInvoice" />
+
+    <ImageView
+        android:id="@+id/viewStatistic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/thongke"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ivCreateNewInvoice"
+        app:layout_constraintStart_toStartOf="@+id/ivCreateNewInvoice"
+        app:layout_constraintTop_toBottomOf="@+id/ivCreateNewInvoice" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thống kê"
+        app:layout_constraintEnd_toEndOf="@+id/viewStatistic"
+        app:layout_constraintStart_toStartOf="@+id/viewStatistic"
+        app:layout_constraintTop_toBottomOf="@+id/viewStatistic" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
