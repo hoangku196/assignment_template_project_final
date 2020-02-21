@@ -1,14 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".fragment.UpdateBook">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/logo" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/edUpdateNameBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập vào tên sách mới" />
+
+    <EditText
+        android:id="@+id/edUpdatePriceBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập vào giá mới" />
+
+    <EditText
+        android:id="@+id/edUpdateInStockBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập vào số lượng tồn kho" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cập nhật" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Hủy" />
+
+    </LinearLayout>
+
+</LinearLayout>

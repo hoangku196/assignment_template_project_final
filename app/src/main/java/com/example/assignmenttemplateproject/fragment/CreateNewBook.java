@@ -52,6 +52,11 @@ public class CreateNewBook extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        bookDAO = new BookDAO(getActivity());
+        categoryDAO = new CategoryBookDAO(getActivity());
+        categoryDAO.connectDatabase();
+
         View view = inflater.inflate(R.layout.fragment_create_new_book, container, false);
 
         findAllViewById(view);
@@ -118,10 +123,6 @@ public class CreateNewBook extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bookDAO = new BookDAO(getActivity());
-        categoryDAO = new CategoryBookDAO(getActivity());
-        bookDAO.connectDatabase();
-        categoryDAO.connectDatabase();
     }
 
     @Override

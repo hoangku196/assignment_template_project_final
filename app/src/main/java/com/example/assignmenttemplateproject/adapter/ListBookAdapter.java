@@ -61,7 +61,7 @@ public class ListBookAdapter extends RecyclerView.Adapter<ListBookAdapter.BookVi
 
     @Override
     public int getItemCount() {
-        return 0;
+        return books.size();
     }
 
     static class BookViewHolder extends RecyclerView.ViewHolder {

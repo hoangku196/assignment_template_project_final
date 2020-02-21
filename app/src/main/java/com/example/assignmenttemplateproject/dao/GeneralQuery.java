@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.assignmenttemplateproject.adapter.ListBestSaleAdapter;
 import com.example.assignmenttemplateproject.database.DatabaseHelper;
 import com.example.assignmenttemplateproject.model.Book;
 
@@ -118,8 +119,8 @@ public class GeneralQuery {
         return total * price;
     }
 
-    public List<Book> seachBestSale(String month) {
-        List<Book> books = new ArrayList<>();
+    public List<ListBestSaleAdapter.SaleItem> searchBestSale(String month) {
+        List<ListBestSaleAdapter.SaleItem> saleItems = new ArrayList<>();
 
         if (Integer.parseInt(month) < 10) {
             month = "0" + month;
@@ -127,7 +128,7 @@ public class GeneralQuery {
 
         int year = Calendar.getInstance().get(Calendar.YEAR);
 
-        String sql = "SELECT B.*, SUM(B.price*SUM(ID.amount)) As 'Total' from Book As 'B' " +
+        String sql = "SELECT B.IdBook, SUM(ID.amount) As 'Total' from Book As 'B' " +
                 "INNER JOIN InvoiceDetails As 'ID' " +
                 "ON B.idBook = ID.idBook " +
                 "INNER JOIN Invoice as 'I' " +
@@ -140,11 +141,16 @@ public class GeneralQuery {
 
         Cursor cursor = db.rawQuery(sql, selectionArgs);
         cursor.moveToFirst();
-        while(!cursor.isAfterLast()){
+        while (!cursor.isAfterLast()) {
+            String id = cursor.getString(0);
+            int amount = cursor.getInt(1);
 
+            ListBestSaleAdapter.SaleItem item = new ListBestSaleAdapter.SaleItem(id, amount);
+            saleItems.add(item);
+            cursor.moveToNext();
         }
 
-        return books;
+        return saleItems;
     }
 
     public void connectDatabase() {

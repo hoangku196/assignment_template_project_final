@@ -45,6 +45,10 @@ public class ListInvoice extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_invoice, container, false);
 
+        invoiceDAO = new InvoiceDAO(getActivity());
+
+        invoiceDAO.connectDatabase();
+
         findAllViewById(view);
 
         setRecyclerListInvoice();
@@ -90,13 +94,11 @@ public class ListInvoice extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        invoiceDAO = new InvoiceDAO(getActivity());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        invoiceDAO.connectDatabase();
     }
 
     @Override
