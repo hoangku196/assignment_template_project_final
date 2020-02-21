@@ -1,7 +1,13 @@
 package com.example.assignmenttemplateproject.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -9,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.NavHost;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.assignmenttemplateproject.R;
@@ -59,7 +67,7 @@ public class ListInvoiceAdapter extends RecyclerView.Adapter<ListInvoiceAdapter.
         return invoices.size();
     }
 
-    static class InvoiceViewHolder extends RecyclerView.ViewHolder {
+    static class InvoiceViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
         private ImageView ivDeleteInvoice;
         private TextView tvIdInvoice, tvDateInvoice;
 
@@ -68,6 +76,20 @@ public class ListInvoiceAdapter extends RecyclerView.Adapter<ListInvoiceAdapter.
             ivDeleteInvoice = itemView.findViewById(R.id.ivDeleteInvoice);
             tvIdInvoice = itemView.findViewById(R.id.tvIdInvoice);
             tvDateInvoice = itemView.findViewById(R.id.tvDateInvoice);
+
+            itemView.setOnCreateContextMenuListener(this);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putString("key_idInvoice", tvIdInvoice.getText().toString());
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            return false;
         }
     }
 }

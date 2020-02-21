@@ -39,6 +39,8 @@ public class CreateNewCategoryBook extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_category_book, container, false);
+        categoryDAO = new CategoryBookDAO(getActivity());
+        categoryDAO.connectDatabase();
 
         findAllViewById(view);
 
@@ -89,8 +91,7 @@ public class CreateNewCategoryBook extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        categoryDAO = new CategoryBookDAO(getActivity());
-        categoryDAO.connectDatabase();
+
     }
 
     @Override

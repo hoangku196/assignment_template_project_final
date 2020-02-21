@@ -38,12 +38,14 @@
         android:weightSum="2">
 
         <Button
+            android:id="@+id/btnUpdateCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cập nhật" />
 
         <Button
+            android:id="@+id/btnExitUpdateCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

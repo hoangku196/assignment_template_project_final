@@ -1,6 +1,7 @@
 package com.example.assignmenttemplateproject.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.assignmenttemplateproject.R;
@@ -54,6 +56,14 @@ public class ListBookAdapter extends RecyclerView.Adapter<ListBookAdapter.BookVi
                 } else {
                     Toast.makeText(holder.itemView.getContext(), "Xóa thất bại", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("key_idBook", book.getIdBook());
+                Navigation.findNavController(v).navigate(R.id.action_listBook_to_updateBook, bundle);
             }
         });
 

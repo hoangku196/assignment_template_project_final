@@ -63,9 +63,6 @@ public class ListCategoryBookAdapter extends RecyclerView.Adapter<ListCategoryBo
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
                 bundle.putString("idCategory_key", category.getId());
-                bundle.putString("nameCategory_key", category.getName());
-                bundle.putString("describeCategory_key", category.getDescribe());
-                bundle.putInt("idCategory_key", category.getLocation());
 
                 Navigation.findNavController(v).navigate(R.id.action_listCategoryBook_to_updateCategory, bundle);
             }

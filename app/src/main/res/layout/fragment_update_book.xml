@@ -12,11 +12,22 @@
         android:layout_marginBottom="10dp"
         android:src="@drawable/logo" />
 
+    <Spinner
+        android:id="@+id/spnCategoryBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <EditText
-        android:id="@+id/edUpdateNameBook"
+        android:id="@+id/edUpdateAuthorBook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Nhập vào tên sách mới" />
+        android:hint="Nhập vào tên tác giả" />
+
+    <EditText
+        android:id="@+id/edUpdatePublisherBook"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nhập vào tên Nhà Xuất bản" />
 
     <EditText
         android:id="@+id/edUpdatePriceBook"
@@ -37,12 +48,14 @@
         android:weightSum="2">
 
         <Button
+            android:id="@+id/btnUpdateBook"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Cập nhật" />
 
         <Button
+            android:id="@+id/btnExitUpdateBook"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

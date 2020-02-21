@@ -36,6 +36,8 @@ public class ListBook extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_book, container, false);
+        bookDAO = new BookDAO(getActivity());
+        bookDAO.connectDatabase();
 
         findAllViewById(view);
 
@@ -61,8 +63,7 @@ public class ListBook extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        bookDAO = new BookDAO(getActivity());
-        bookDAO.connectDatabase();
+
     }
 
     @Override

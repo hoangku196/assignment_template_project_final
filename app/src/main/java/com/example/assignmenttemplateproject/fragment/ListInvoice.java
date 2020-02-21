@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -79,16 +80,19 @@ public class ListInvoice extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
+        //todo
         switch (item.getItemId()) {
-            case R.id.context_list_user_update:
-                NavHostFragment.findNavController(this).navigate(R.id.action_listInvoice_to_updateInvoice);
-                return true;
-            case R.id.context_list_user_add_details:
+            case R.id.context_list_invoice_update:
+                Bundle bundle = item.getIntent().getExtras();
+                Log.e("dec",R.id.context_list_invoice_update+"");
+                NavHostFragment.findNavController(this).navigate(R.id.action_listInvoice_to_updateInvoice, bundle);
+                break;
+            case R.id.context_list_invoice_add_details:
                 NavHostFragment.findNavController(this).navigate(R.id.action_listInvoice_to_createNewInvoiceDetails);
-                return true;
-            default:
-                return super.onContextItemSelected(item);
+                break;
         }
+
+        return super.onContextItemSelected(item);
     }
 
     @Override
