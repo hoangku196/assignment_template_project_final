@@ -17,10 +17,12 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.example.assignmenttemplateproject.R;
 import com.example.assignmenttemplateproject.adapter.ListInvoiceAdapter;
 import com.example.assignmenttemplateproject.dao.InvoiceDAO;
+import com.example.assignmenttemplateproject.model.Invoice;
 
 
 /**
@@ -80,12 +82,11 @@ public class ListInvoice extends Fragment {
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
+
         //todo
         switch (item.getItemId()) {
             case R.id.context_list_invoice_update:
-                Bundle bundle = item.getIntent().getExtras();
-                Log.e("dec",R.id.context_list_invoice_update+"");
-                NavHostFragment.findNavController(this).navigate(R.id.action_listInvoice_to_updateInvoice, bundle);
+                NavHostFragment.findNavController(this).navigate(R.id.action_listInvoice_to_updateInvoice);
                 break;
             case R.id.context_list_invoice_add_details:
                 NavHostFragment.findNavController(this).navigate(R.id.action_listInvoice_to_createNewInvoiceDetails);

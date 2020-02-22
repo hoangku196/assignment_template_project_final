@@ -41,6 +41,8 @@ public class Login extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        userDAO = new UserDAO(getActivity());
+        userDAO.connectDatabase();
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         //Find View By Id
@@ -120,8 +122,6 @@ public class Login extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userDAO = new UserDAO(getActivity());
-        userDAO.connectDatabase();
     }
 
     @Override
