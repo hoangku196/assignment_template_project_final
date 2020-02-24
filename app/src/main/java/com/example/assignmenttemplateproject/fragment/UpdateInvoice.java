@@ -75,6 +75,7 @@ public class UpdateInvoice extends Fragment {
                         edUpdateDateInvoice.setText(simpleDateFormat.format(calendar.getTime()));
                     }
                 }, year, month, day);
+
                 datePickerDialog.show();
             }
         });
@@ -84,17 +85,25 @@ public class UpdateInvoice extends Fragment {
             public void onClick(View v) {
                 try {
                     String idInvoice = bundle.getString("key_idInvoice");
-                    Log.e(TAG, bundle.getString("key_idInvoice"));
                     String dateInvoice = edUpdateDateInvoice.getText().toString();
 
                     //todo
                     if (invoiceDAO.updateInvoice(new Invoice(idInvoice, dateInvoice))) {
                         Toast.makeText(getActivity(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                        getActivity().onBackPressed();
+                        if (getActivity() != null)
+                            getActivity().onBackPressed();
                     }
                 } catch (Exception e) {
                     Toast.makeText(getActivity(), "Nhập sai", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnExitUpdateInvoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (getActivity() != null)
+                    getActivity().onBackPressed();
             }
         });
     }

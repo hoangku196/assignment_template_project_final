@@ -73,17 +73,15 @@ public class ListInvoice extends Fragment {
         recyclerListInvoice = view.findViewById(R.id.recyclerListInvoice);
     }
 
-    @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.context_menu_list_invoice, menu);
-    }
+//    @Override
+//    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+//        super.onCreateContextMenu(menu, v, menuInfo);
+//        MenuInflater inflater = getActivity().getMenuInflater();
+//        inflater.inflate(R.menu.context_menu_list_invoice, menu);
+//    }
 
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-
-        //todo
         switch (item.getItemId()) {
             case R.id.context_list_invoice_update:
                 NavHostFragment.findNavController(this).navigate(R.id.action_listInvoice_to_updateInvoice);

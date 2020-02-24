@@ -1,8 +1,12 @@
 package com.example.assignmenttemplateproject.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -10,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.assignmenttemplateproject.R;
@@ -53,6 +58,35 @@ public class ListInvoiceAdapter extends RecyclerView.Adapter<ListInvoiceAdapter.
                 }
             }
         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Dialog dialog = new Dialog(holder.itemView.getContext());
+                dialog.setContentView(R.layout.dialog_list_invoice_adapter);
+
+                TextView tvUpdateInvoice = dialog.findViewById(R.id.tvUpdateInvoice);
+
+                final Bundle bundle = new Bundle();
+                bundle.putString("key_idInvoice", invoice.getIdInvoice());
+                bundle.putString("key_dateInvoice", invoice.getDate());
+
+                tvUpdateInvoice.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Navigation.findNavController(v).navigate(R.id.action_listInvoice_to_updateInvoice, bundle);
+                    }
+                });
+                TextView tvAddInvoiceDetails = dialog.findViewById(R.id.tvAddInvoiceDetails);
+                tvAddInvoiceDetails.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Navigation.findNavController(v).navigate(R.id.action_listInvoice_to_createNewInvoiceDetails, bundle);
+                    }
+                });
+
+                dialog.show();
+            }
+        });
     }
 
     @Override
@@ -75,7 +109,15 @@ public class ListInvoiceAdapter extends RecyclerView.Adapter<ListInvoiceAdapter.
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-
+            menu.add(Menu.NONE, R.id.context_list_invoice_update, Menu.NONE, "Update");
+            menu.add(Menu.NONE, R.id.context_list_invoice_add_details, Menu.NONE, "Update");
         }
+
+        private final MenuItem.OnMenuItemClickListener onMenuItemClickListener = new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return false;
+            }
+        };
     }
 }

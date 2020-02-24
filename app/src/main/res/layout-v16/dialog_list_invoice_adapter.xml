@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvUpdateInvoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FA0000"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Update"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvAddInvoiceDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#61E702"
+        android:fontFamily="sans-serif-black"
+        android:gravity="center"
+        android:text="Add Details"
+        android:textSize="25sp" />
+</LinearLayout>
