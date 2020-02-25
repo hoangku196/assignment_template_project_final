@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,10 @@ import com.example.assignmenttemplateproject.model.Book;
 import com.example.assignmenttemplateproject.model.Invoice;
 import com.example.assignmenttemplateproject.model.InvoiceDetails;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -37,7 +41,7 @@ public class CreateNewInvoiceDetails extends Fragment {
 
     private Bundle bundle;
 
-    private List<ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview> previews;
+    private List<ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview> previews = new ArrayList<>();
 
     private ListInvoiceDetailsPreviewAdapter adapter;
 
@@ -62,12 +66,16 @@ public class CreateNewInvoiceDetails extends Fragment {
         bookDAO.connectDatabase();
         detailsDAO.connectDatabase();
         bundle = getArguments();
+        adapter = new ListInvoiceDetailsPreviewAdapter(getActivity(), previews);
+        adapter.setBookDAO(bookDAO);
 
         findAllViewById(view);
 
         setSpnIdBook();
 
         setTvIdInvoice();
+
+        setLvInvoiceDetailPreview();
 
         setAllOnClick();
 
@@ -78,16 +86,23 @@ public class CreateNewInvoiceDetails extends Fragment {
         btnAddInvoiceDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Book book = (Book) spnIdBook.getSelectedItem();
-                float price = book.getPrice();
-                int amount = Integer.parseInt(edAmountInvoiceDetail.getText().toString());
+                try {
+                    Book book = (Book) spnIdBook.getSelectedItem();
+                    float price = book.getPrice();
+                    int amount = Integer.parseInt(edAmountInvoiceDetail.getText().toString());
 
-                ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview preview =
-                        new ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview(book, amount, price);
+                    ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview preview =
+                            new ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview(book, amount, price);
 
-                previews.add(preview);
-
-                setLvInvoiceDetailPreview();
+                    if (checkBtnAdd(previews, preview)) {
+                        previews.add(preview);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        Toast.makeText(getActivity(), "Tồn kho không đủ để thực hiện", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "Nhập sai", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -101,6 +116,7 @@ public class CreateNewInvoiceDetails extends Fragment {
                 boolean check = false;
                 for (ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview item : previews) {
                     InvoiceDetails details = new InvoiceDetails(id, item.getAmount(), item.getBook(), invoice);
+                    updateBookInDatabase(item);
                     check = detailsDAO.insertNewInvoiceDetails(details);
                 }
                 if (check) {
@@ -110,8 +126,43 @@ public class CreateNewInvoiceDetails extends Fragment {
         });
     }
 
+    private void updateBookInDatabase(ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview previewItem) {
+        Book book = previewItem.getBook();
+
+        int beforeInStock = book.getInStock();
+        int afterInStock = beforeInStock - previewItem.getAmount();
+        book.setInStock(afterInStock);
+
+        bookDAO.updateBook(book);
+    }
+
+    private boolean checkBtnAdd(List<ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview> previews, ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview previewItem) {
+        boolean check = true;
+
+        int amount = 0;
+
+        List<ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview> testPreviews;
+
+        testPreviews = previews;
+
+        testPreviews.add(previewItem);
+
+        for (ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview item : testPreviews) {
+            if (item.getBook().getIdBook().equals(previewItem.getBook().getIdBook())) {
+                amount += item.getAmount();
+            }
+            if (amount > item.getBook().getInStock()) {
+                check = false;
+                break;
+            }
+        }
+
+        testPreviews.remove(previewItem);
+
+        return check;
+    }
+
     private void setLvInvoiceDetailPreview() {
-        adapter = new ListInvoiceDetailsPreviewAdapter(getActivity(), previews);
         lvInvoiceDetailPreview.setAdapter(adapter);
     }
 

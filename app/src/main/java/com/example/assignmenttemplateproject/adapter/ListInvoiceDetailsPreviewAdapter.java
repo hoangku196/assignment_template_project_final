@@ -8,10 +8,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.navigation.Navigation;
 
 import com.example.assignmenttemplateproject.R;
+import com.example.assignmenttemplateproject.dao.BookDAO;
+import com.example.assignmenttemplateproject.databinding.AdapterListInvoiceDetailPreviewBinding;
 import com.example.assignmenttemplateproject.model.Book;
 
 import java.util.List;
@@ -20,10 +23,16 @@ public class ListInvoiceDetailsPreviewAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     private List<InvoiceDetailsPreview> previews;
+    private AdapterListInvoiceDetailPreviewBinding viewBinding;
+    private BookDAO bookDAO;
 
     public ListInvoiceDetailsPreviewAdapter(Context context, List<InvoiceDetailsPreview> previews) {
         this.previews = previews;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void setBookDAO(BookDAO bookDAO) {
+        this.bookDAO = bookDAO;
     }
 
     @Override
@@ -43,36 +52,33 @@ public class ListInvoiceDetailsPreviewAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        PreviewViewHolder holder;
-
         if (convertView == null) {
-            holder = new PreviewViewHolder();
-            convertView = inflater.inflate(R.layout.adapter_list_invoice_detail_preview, parent);
-            holder.tvIdBook = convertView.findViewById(R.id.tvIdBook);
-            holder.tvAmountBook = convertView.findViewById(R.id.tvAmountBook);
-            holder.tvPriceBook = convertView.findViewById(R.id.tvPriceBook);
-            holder.tvTotal = convertView.findViewById(R.id.tvTotal);
-            holder.imgDeletePreView = convertView.findViewById(R.id.imgDeletePreView);
-            holder.imgDeletePreView.setOnClickListener(new View.OnClickListener() {
+            final InvoiceDetailsPreview preview = previews.get(position);
+            viewBinding = DataBindingUtil.inflate(inflater, R.layout.adapter_list_invoice_detail_preview, parent, false);
+            viewBinding.setPreview(preview);
+
+            ImageView imgDeletePreView = viewBinding.getRoot().findViewById(R.id.imgDeletePreView);
+            imgDeletePreView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    previews.remove(position);
+                    previews.remove(preview);
+                    updateBookInDatabase(preview);
                     notifyDataSetChanged();
                 }
             });
-            convertView.setTag(holder);
-        } else {
-            holder = (PreviewViewHolder) convertView.getTag();
         }
 
-        InvoiceDetailsPreview preview = previews.get(position);
+        return viewBinding.getRoot();
+    }
 
-        holder.tvIdBook.setText(preview.getBook().getIdBook());
-        holder.tvAmountBook.setText(String.valueOf(preview.getAmount()));
-        holder.tvPriceBook.setText(preview.getPrice() + ".vnd");
-        holder.tvIdBook.setText(preview.getTotal() + ".vnd");
+    private void updateBookInDatabase(InvoiceDetailsPreview previewItem) {
+        Book book = previewItem.getBook();
 
-        return convertView;
+        int beforeInStock = book.getInStock();
+        int afterInStock = beforeInStock + previewItem.getAmount();
+        book.setInStock(afterInStock);
+
+        bookDAO.updateBook(book);
     }
 
     @Override
@@ -108,12 +114,5 @@ public class ListInvoiceDetailsPreviewAdapter extends BaseAdapter {
         public float getTotal() {
             return total;
         }
-    }
-
-    private class PreviewViewHolder {
-
-        private TextView tvIdBook, tvAmountBook, tvPriceBook, tvTotal;
-        private ImageView imgDeletePreView;
-
     }
 }

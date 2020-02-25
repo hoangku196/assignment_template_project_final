@@ -50,6 +50,22 @@ public class BookDAO {
         return true;
     }
 
+    public int getInStockBookById(String id) {
+
+        int inStock = 0;
+
+        String sql = "SELECT inStock FROM Book WHERE ID=?";
+        String[] selectionArgs = {id};
+
+        Cursor cursor = db.rawQuery(sql, selectionArgs);
+        cursor.moveToFirst();
+        inStock += cursor.getInt(0);
+
+        cursor.close();
+
+        return inStock;
+    }
+
     public List<Book> getAllListBook() {
         List<Book> books = new ArrayList<>();
 

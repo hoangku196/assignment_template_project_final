@@ -1,5 +1,7 @@
 package com.example.assignmenttemplateproject.model;
 
+import androidx.annotation.NonNull;
+
 public class Book {
 
     private String idBook, author, publisher;
@@ -62,5 +64,11 @@ public class Book {
 
     public void setInStock(int inStock) {
         this.inStock = inStock;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return this.idBook;
     }
 }

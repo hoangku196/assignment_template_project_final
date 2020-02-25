@@ -65,6 +65,7 @@ public class ListInvoice extends Fragment {
         layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         invoiceAdapter = new ListInvoiceAdapter(getActivity(), invoiceDAO);
+        invoiceAdapter.setListInvoiceFragment(this);
         recyclerListInvoice.setLayoutManager(layoutManager);
         recyclerListInvoice.setAdapter(invoiceAdapter);
     }

@@ -15,10 +15,12 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.assignmenttemplateproject.R;
 import com.example.assignmenttemplateproject.dao.InvoiceDAO;
+import com.example.assignmenttemplateproject.fragment.ListInvoice;
 import com.example.assignmenttemplateproject.model.Invoice;
 
 import java.util.List;
@@ -28,11 +30,16 @@ public class ListInvoiceAdapter extends RecyclerView.Adapter<ListInvoiceAdapter.
     private List<Invoice> invoices;
     private InvoiceDAO invoiceDAO;
     private LayoutInflater inflater;
+    private ListInvoice listInvoiceFragment;
 
     public ListInvoiceAdapter(Context context, InvoiceDAO invoiceDAO) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.invoiceDAO = invoiceDAO;
         this.invoices = this.invoiceDAO.getAllInvoice();
+    }
+
+    public void setListInvoiceFragment(ListInvoice listInvoiceFragment) {
+        this.listInvoiceFragment = listInvoiceFragment;
     }
 
     @NonNull
@@ -61,8 +68,9 @@ public class ListInvoiceAdapter extends RecyclerView.Adapter<ListInvoiceAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Dialog dialog = new Dialog(holder.itemView.getContext());
+                final Dialog dialog = new Dialog(holder.itemView.getContext());
                 dialog.setContentView(R.layout.dialog_list_invoice_adapter);
+                dialog.setTitle("Chuyển tiếp");
 
                 TextView tvUpdateInvoice = dialog.findViewById(R.id.tvUpdateInvoice);
 
@@ -73,14 +81,16 @@ public class ListInvoiceAdapter extends RecyclerView.Adapter<ListInvoiceAdapter.
                 tvUpdateInvoice.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Navigation.findNavController(v).navigate(R.id.action_listInvoice_to_updateInvoice, bundle);
+                        dialog.hide();
+                        NavHostFragment.findNavController(listInvoiceFragment).navigate(R.id.action_listInvoice_to_updateInvoice);
                     }
                 });
                 TextView tvAddInvoiceDetails = dialog.findViewById(R.id.tvAddInvoiceDetails);
                 tvAddInvoiceDetails.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Navigation.findNavController(v).navigate(R.id.action_listInvoice_to_createNewInvoiceDetails, bundle);
+                        dialog.hide();
+                        NavHostFragment.findNavController(listInvoiceFragment).navigate(R.id.action_listInvoice_to_createNewInvoiceDetails, bundle);
                     }
                 });
 
@@ -110,7 +120,7 @@ public class ListInvoiceAdapter extends RecyclerView.Adapter<ListInvoiceAdapter.
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
             menu.add(Menu.NONE, R.id.context_list_invoice_update, Menu.NONE, "Update");
-            menu.add(Menu.NONE, R.id.context_list_invoice_add_details, Menu.NONE, "Update");
+            menu.add(Menu.NONE, R.id.context_list_invoice_add_details, Menu.NONE, "Details");
         }
 
         private final MenuItem.OnMenuItemClickListener onMenuItemClickListener = new MenuItem.OnMenuItemClickListener() {
