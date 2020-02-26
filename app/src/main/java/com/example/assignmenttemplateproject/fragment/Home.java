@@ -19,7 +19,7 @@ import com.example.assignmenttemplateproject.R;
  */
 public class Home extends Fragment {
 
-    private ImageView ivCreateNewUser, ivCreateNewCategoryBook, ivCreateNewBook, ivCreateNewInvoice;
+    private ImageView ivCreateNewUser, ivCreateNewCategoryBook, ivCreateNewBook, ivCreateNewInvoice, ivStatistic, ivBestSelling;
 
     public Home() {
         // Required empty public constructor
@@ -43,6 +43,8 @@ public class Home extends Fragment {
         ivCreateNewCategoryBook = view.findViewById(R.id.ivCreateNewCategoryBook);
         ivCreateNewBook = view.findViewById(R.id.ivCreateNewBook);
         ivCreateNewInvoice = view.findViewById(R.id.ivCreateNewInvoice);
+        ivStatistic = view.findViewById(R.id.ivStatistic);
+        ivBestSelling = view.findViewById(R.id.ivBestSelling);
     }
 
     private void setAllOnClick() {
@@ -70,6 +72,18 @@ public class Home extends Fragment {
             @Override
             public void onClick(View v) {
                 Navigation.findNavController(v).navigate(R.id.action_home2_to_invoice);
+            }
+        });
+        ivStatistic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_home2_to_statistic);
+            }
+        });
+        ivBestSelling.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(v).navigate(R.id.action_home2_to_bestSale);
             }
         });
     }

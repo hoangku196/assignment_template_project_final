@@ -64,11 +64,13 @@ public class ListInvoiceDetailsPreviewAdapter extends BaseAdapter {
         imgDeletePreView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                previews.remove(preview);
-                if (bookDAO != null)
+                if (bookDAO != null) {
                     updateBookInDatabase(preview);
-                if (detailsDAO != null)
+                }
+                if (detailsDAO != null) {
                     detailsDAO.deleteInvoiceDetails(Integer.parseInt(preview.getIdDetails()));
+                }
+                previews.remove(preview);
                 notifyDataSetChanged();
             }
         });
@@ -79,7 +81,7 @@ public class ListInvoiceDetailsPreviewAdapter extends BaseAdapter {
     private void updateBookInDatabase(InvoiceDetailsPreview previewItem) {
         Book book = previewItem.getBook();
 
-        int beforeInStock = book.getInStock();
+        int beforeInStock = bookDAO.getInStockBookById(book.getIdBook());
         int afterInStock = beforeInStock + previewItem.getAmount();
         book.setInStock(afterInStock);
 

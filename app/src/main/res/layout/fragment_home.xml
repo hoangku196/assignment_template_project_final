@@ -31,7 +31,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/bookicon"
-        app:layout_constraintBottom_toTopOf="@+id/viewBestSelling"
+        app:layout_constraintBottom_toTopOf="@+id/ivBestSelling"
         app:layout_constraintEnd_toEndOf="@+id/ivCreateNewUser"
         app:layout_constraintStart_toStartOf="@+id/ivCreateNewUser"
         app:layout_constraintTop_toBottomOf="@+id/ivCreateNewUser" />
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivCreateNewBook" />
 
     <ImageView
-        android:id="@+id/viewBestSelling"
+        android:id="@+id/ivBestSelling"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/money_icon"
@@ -60,9 +60,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sách bán chạy"
-        app:layout_constraintEnd_toEndOf="@+id/viewBestSelling"
-        app:layout_constraintStart_toStartOf="@+id/viewBestSelling"
-        app:layout_constraintTop_toBottomOf="@+id/viewBestSelling" />
+        app:layout_constraintEnd_toEndOf="@+id/ivBestSelling"
+        app:layout_constraintStart_toStartOf="@+id/ivBestSelling"
+        app:layout_constraintTop_toBottomOf="@+id/ivBestSelling" />
 
     <ImageView
         android:id="@+id/ivCreateNewCategoryBook"
@@ -89,7 +89,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/hdicon"
-        app:layout_constraintBottom_toTopOf="@+id/viewStatistic"
+        app:layout_constraintBottom_toTopOf="@+id/ivStatistic"
         app:layout_constraintEnd_toEndOf="@+id/ivCreateNewCategoryBook"
         app:layout_constraintStart_toStartOf="@+id/ivCreateNewCategoryBook"
         app:layout_constraintTop_toBottomOf="@+id/ivCreateNewCategoryBook" />
@@ -104,7 +104,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivCreateNewInvoice" />
 
     <ImageView
-        android:id="@+id/viewStatistic"
+        android:id="@+id/ivStatistic"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/thongke"
@@ -118,8 +118,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Thống kê"
-        app:layout_constraintEnd_toEndOf="@+id/viewStatistic"
-        app:layout_constraintStart_toStartOf="@+id/viewStatistic"
-        app:layout_constraintTop_toBottomOf="@+id/viewStatistic" />
+        app:layout_constraintEnd_toEndOf="@+id/ivStatistic"
+        app:layout_constraintStart_toStartOf="@+id/ivStatistic"
+        app:layout_constraintTop_toBottomOf="@+id/ivStatistic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

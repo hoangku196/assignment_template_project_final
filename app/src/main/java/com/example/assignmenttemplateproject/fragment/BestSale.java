@@ -44,6 +44,7 @@ public class BestSale extends Fragment {
                              Bundle savedInstanceState) {
 
         generalQuery = new GeneralQuery(getActivity());
+        generalQuery.connectDatabase();
 
         View view = inflater.inflate(R.layout.fragment_best_sale, container, false);
 
@@ -69,9 +70,7 @@ public class BestSale extends Fragment {
 
         String month = edTopBestSelling.getText().toString();
 
-        List<ListBestSaleAdapter.SaleItem> sales = generalQuery.searchBestSale(month);
-
-        adapter = new ListBestSaleAdapter(getActivity(), sales);
+        adapter = new ListBestSaleAdapter(getActivity(), generalQuery.searchBestSale(month));
 
         recyclerListBestSale.setLayoutManager(manager);
         recyclerListBestSale.setAdapter(adapter);

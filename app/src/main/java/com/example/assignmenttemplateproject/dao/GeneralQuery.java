@@ -3,6 +3,7 @@ package com.example.assignmenttemplateproject.dao;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.assignmenttemplateproject.adapter.ListBestSaleAdapter;
 import com.example.assignmenttemplateproject.database.DatabaseHelper;
@@ -22,24 +23,24 @@ public class GeneralQuery {
     }
 
     public float getTotalDailySaleByDay() {
-        float price = 0;
-        int total = 0;
+        float total = 0;
 
         Calendar calendar = Calendar.getInstance();
-//
-//        int day = calendar.get(Calendar.DAY_OF_WEEK);
-//        int month = calendar.get(Calendar.MONTH);
-//        int year = calendar.get(Calendar.YEAR);
+        int day = calendar.get(Calendar.DATE);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("DD-MM-YYYY");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String today = sdf.format(calendar.getTime());
+        Log.e("today", today);
 
-        String sql = "SELECT id.amount, B.price FROM InvoiceDetails As 'ID' " +
+        String sql = "SELECT SUM(id.amount)*B.price FROM InvoiceDetails As 'ID' " +
                 "INNER JOIN BOOK As 'B' " +
                 "ON B.idBook = ID.idBook " +
                 "INNER JOIN INVOICE AS 'I' " +
-                "ON I.idBill = ID.idBill " +
-                "WHERE I.dateInvoice LIKE ?";
+                "ON I.idInvoice = ID.idInvoice " +
+                "WHERE I.dateInvoice = ?" +
+                "GROUP BY ID.idBook";
 
         String[] selectionArgs = {today};
 
@@ -47,46 +48,45 @@ public class GeneralQuery {
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
-            total += cursor.getInt(0);
-            price += cursor.getFloat(1);
+            total += cursor.getFloat(0);
+            cursor.moveToNext();
         }
 
         cursor.close();
+        Log.e("total", total + "");
 
-        return total * price;
+        return total;
     }
 
     public float getTotalDailySaleByMonth() {
-        float price = 0;
-        int total = 0;
+        float total = 0;
 
         Calendar calendar = Calendar.getInstance();
 
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
 
-        String today = month + "-" + year;
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+        String today = sdf.format(calendar.getTime());
 
-        String sql = "SELECT id.amount, B.price FROM InvoiceDetails As 'ID' " +
+        String sql = "SELECT SUM(id.amount)*B.price FROM InvoiceDetails As 'ID' " +
                 "INNER JOIN BOOK As 'B' " +
                 "ON B.idBook = ID.idBook " +
                 "INNER JOIN INVOICE AS 'I' " +
-                "ON I.idBill = ID.idBill " +
+                "ON I.idInvoice = ID.idInvoice " +
                 "WHERE I.dateInvoice LIKE ?";
 
-        String[] selectionArgs = {"__-" + today};
+        String[] selectionArgs = {"__-%" + today};
 
         Cursor cursor = db.rawQuery(sql, selectionArgs);
         cursor.moveToFirst();
 
         while (!cursor.isAfterLast()) {
             total += cursor.getInt(0);
-            price += cursor.getFloat(1);
+            cursor.moveToNext();
         }
 
         cursor.close();
 
-        return total * price;
+        return total;
     }
 
     public float getTotalDailySaleByYear() {
@@ -101,7 +101,7 @@ public class GeneralQuery {
                 "INNER JOIN BOOK As 'B' " +
                 "ON B.idBook = ID.idBook " +
                 "INNER JOIN INVOICE AS 'I' " +
-                "ON I.idBill = ID.idBill " +
+                "ON I.idInvoice = ID.idInvoice " +
                 "WHERE I.dateInvoice LIKE ?";
 
         String[] selectionArgs = {"__-__-" + year};
@@ -112,6 +112,7 @@ public class GeneralQuery {
         while (!cursor.isAfterLast()) {
             total += cursor.getInt(0);
             price += cursor.getFloat(1);
+            cursor.moveToNext();
         }
 
         cursor.close();
@@ -122,33 +123,35 @@ public class GeneralQuery {
     public List<ListBestSaleAdapter.SaleItem> searchBestSale(String month) {
         List<ListBestSaleAdapter.SaleItem> saleItems = new ArrayList<>();
 
-        if (Integer.parseInt(month) < 10) {
-            month = "0" + month;
-        }
+        Calendar calendar = Calendar.getInstance();
+        int day = calendar.get(Calendar.DATE);
+        int year = calendar.get(Calendar.YEAR);
+        calendar.set(year, Integer.parseInt(month) - 1, day);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+        String today = sdf.format(calendar.getTime());
 
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-
-        String sql = "SELECT B.IdBook, SUM(ID.amount) As 'Total' from Book As 'B' " +
-                "INNER JOIN InvoiceDetails As 'ID' " +
-                "ON B.idBook = ID.idBook " +
+        String sql = "SELECT idBook, SUM(amount) As 'Total' from InvoiceDetails As 'ID' " +
                 "INNER JOIN Invoice as 'I' " +
                 "ON I.idInvoice = ID.idInvoice " +
-                "WHERE dateInvoice LIKE ? " +
-                "GROUP BY B.idBook " +
+                "WHERE I.dateInvoice LIKE ? " +
+                "GROUP BY idBook " +
                 "ORDER BY Total DESC LIMIT 10";
 
-        String[] selectionArgs = {"__-" + month + "-" + year};
+        String[] selectionArgs = {"__-%" + today};
 
         Cursor cursor = db.rawQuery(sql, selectionArgs);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             String id = cursor.getString(0);
             int amount = cursor.getInt(1);
+            Log.e("id", id+amount);
 
             ListBestSaleAdapter.SaleItem item = new ListBestSaleAdapter.SaleItem(id, amount);
             saleItems.add(item);
             cursor.moveToNext();
         }
+
+        cursor.close();
 
         return saleItems;
     }

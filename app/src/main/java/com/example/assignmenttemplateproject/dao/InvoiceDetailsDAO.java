@@ -50,7 +50,7 @@ public class InvoiceDetailsDAO {
         return true;
     }
 
-    public List<InvoiceDetails> getAllInvoiceDetails() {
+    public List<InvoiceDetails> getAllInvoiceDetails(String id) {
         List<InvoiceDetails> detailsList = new ArrayList<>();
 
         String sql = "SELECT idDetails, ID.idInvoice, ID.idBook, amount, " +
@@ -63,9 +63,12 @@ public class InvoiceDetailsDAO {
                 "INNER JOIN Book As 'B' " +
                 "ON B.idBook = ID.idBook " +
                 "INNER JOIN CategoryBook As 'CB' " +
-                "ON B.idCategory = CB.idCategory";
+                "ON B.idCategory = CB.idCategory " +
+                "WHERE ID.idInvoice = ?";
 
-        Cursor cursor = db.rawQuery(sql, null);
+        String[] selectionArgs = {id};
+
+        Cursor cursor = db.rawQuery(sql, selectionArgs);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
 

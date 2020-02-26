@@ -54,7 +54,7 @@ public class BookDAO {
 
         int inStock = 0;
 
-        String sql = "SELECT inStock FROM Book WHERE ID=?";
+        String sql = "SELECT inStock FROM Book WHERE idBook=?";
         String[] selectionArgs = {id};
 
         Cursor cursor = db.rawQuery(sql, selectionArgs);

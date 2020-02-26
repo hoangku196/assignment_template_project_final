@@ -27,7 +27,7 @@ public class ListBestSaleAdapter extends RecyclerView.Adapter<ListBestSaleAdapte
     @NonNull
     @Override
     public BestSaleViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = inflater.inflate(R.layout.adapter_list_best_sale, parent);
+        View itemView = inflater.inflate(R.layout.adapter_list_best_sale, parent, false);
 
         return new BestSaleViewHolder(itemView);
     }

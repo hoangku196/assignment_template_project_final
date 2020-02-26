@@ -110,7 +110,6 @@ public class CreateNewInvoiceDetails extends Fragment {
         btnPayInvoiceDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = edIdInvoiceDetail.getText().toString();
                 String idInvoice = bundle.getString("key_idInvoice");
                 String dateInvoice = bundle.getString("key_dateInvoice");
                 Invoice invoice = new Invoice(idInvoice, dateInvoice);
@@ -122,7 +121,7 @@ public class CreateNewInvoiceDetails extends Fragment {
                     check = true;
                 }
                 if (check) {
-                    Navigation.findNavController(v).navigate(R.id.action_createNewInvoiceDetails_to_listInvoiceDetails);
+                    Navigation.findNavController(v).navigate(R.id.action_createNewInvoiceDetails_to_listInvoiceDetails, bundle);
                     Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                 }
             }
