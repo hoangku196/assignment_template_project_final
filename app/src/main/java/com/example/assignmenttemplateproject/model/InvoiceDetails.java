@@ -14,6 +14,12 @@ public class InvoiceDetails {
         this.invoice = invoice;
     }
 
+    public InvoiceDetails(int amount, Book book, Invoice invoice) {
+        this.amount = amount;
+        this.book = book;
+        this.invoice = invoice;
+    }
+
     public String getIdDetails() {
         return idDetails;
     }

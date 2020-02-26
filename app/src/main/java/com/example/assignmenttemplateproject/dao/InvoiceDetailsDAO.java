@@ -44,6 +44,7 @@ public class InvoiceDetailsDAO {
             }
         } catch (Exception e) {
             Log.e(TAG, e.toString());
+            return false;
         }
 
         return true;
@@ -52,17 +53,17 @@ public class InvoiceDetailsDAO {
     public List<InvoiceDetails> getAllInvoiceDetails() {
         List<InvoiceDetails> detailsList = new ArrayList<>();
 
-        String sql = "SELECT idDetails, ID.idInvoice, B.idBook, amount, " +
+        String sql = "SELECT idDetails, ID.idInvoice, ID.idBook, amount, " +
                 "B.idCategory, B.author, B.publisher, B.price, B.inStock, " +
                 "CB.Name, CB.Describe, CB.Location, " +
                 "I.dateInvoice " +
                 "FROM InvoiceDetails As 'ID' " +
                 "INNER JOIN Invoice As 'I' " +
-                "ON Invoice.idInvoice = InvoiceDetails.idInvoice " +
+                "ON I.idInvoice = ID.idInvoice " +
                 "INNER JOIN Book As 'B' " +
-                "ON Book.idBook = InvoiceDetails.idBook " +
+                "ON B.idBook = ID.idBook " +
                 "INNER JOIN CategoryBook As 'CB' " +
-                "ON Book.idCategory = CategoryBook.idCategory";
+                "ON B.idCategory = CB.idCategory";
 
         Cursor cursor = db.rawQuery(sql, null);
         cursor.moveToFirst();
@@ -97,6 +98,10 @@ public class InvoiceDetailsDAO {
         cursor.close();
 
         return detailsList;
+    }
+
+    public boolean deleteInvoiceDetails(int idDetails) {
+        return db.delete(TABLE, "idDetails=" + idDetails, null) > 0;
     }
 
     public void connectDatabase() {

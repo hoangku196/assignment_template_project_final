@@ -4,6 +4,8 @@ package com.example.assignmenttemplateproject.fragment;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -67,7 +69,6 @@ public class CreateNewInvoiceDetails extends Fragment {
         detailsDAO.connectDatabase();
         bundle = getArguments();
         adapter = new ListInvoiceDetailsPreviewAdapter(getActivity(), previews);
-        adapter.setBookDAO(bookDAO);
 
         findAllViewById(view);
 
@@ -115,11 +116,13 @@ public class CreateNewInvoiceDetails extends Fragment {
                 Invoice invoice = new Invoice(idInvoice, dateInvoice);
                 boolean check = false;
                 for (ListInvoiceDetailsPreviewAdapter.InvoiceDetailsPreview item : previews) {
-                    InvoiceDetails details = new InvoiceDetails(id, item.getAmount(), item.getBook(), invoice);
+                    InvoiceDetails details = new InvoiceDetails(item.getAmount(), item.getBook(), invoice);
                     updateBookInDatabase(item);
-                    check = detailsDAO.insertNewInvoiceDetails(details);
+                    detailsDAO.insertNewInvoiceDetails(details);
+                    check = true;
                 }
                 if (check) {
+                    Navigation.findNavController(v).navigate(R.id.action_createNewInvoiceDetails_to_listInvoiceDetails);
                     Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
                 }
             }

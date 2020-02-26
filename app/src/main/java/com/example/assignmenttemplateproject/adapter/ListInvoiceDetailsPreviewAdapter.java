@@ -6,14 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 
 import androidx.databinding.DataBindingUtil;
-import androidx.navigation.Navigation;
 
 import com.example.assignmenttemplateproject.R;
 import com.example.assignmenttemplateproject.dao.BookDAO;
+import com.example.assignmenttemplateproject.dao.InvoiceDetailsDAO;
 import com.example.assignmenttemplateproject.databinding.AdapterListInvoiceDetailPreviewBinding;
 import com.example.assignmenttemplateproject.model.Book;
 
@@ -25,6 +24,7 @@ public class ListInvoiceDetailsPreviewAdapter extends BaseAdapter {
     private List<InvoiceDetailsPreview> previews;
     private AdapterListInvoiceDetailPreviewBinding viewBinding;
     private BookDAO bookDAO;
+    private InvoiceDetailsDAO detailsDAO;
 
     public ListInvoiceDetailsPreviewAdapter(Context context, List<InvoiceDetailsPreview> previews) {
         this.previews = previews;
@@ -33,6 +33,10 @@ public class ListInvoiceDetailsPreviewAdapter extends BaseAdapter {
 
     public void setBookDAO(BookDAO bookDAO) {
         this.bookDAO = bookDAO;
+    }
+
+    public void setDetailsDAO(InvoiceDetailsDAO detailsDAO) {
+        this.detailsDAO = detailsDAO;
     }
 
     @Override
@@ -52,21 +56,22 @@ public class ListInvoiceDetailsPreviewAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            final InvoiceDetailsPreview preview = previews.get(position);
-            viewBinding = DataBindingUtil.inflate(inflater, R.layout.adapter_list_invoice_detail_preview, parent, false);
-            viewBinding.setPreview(preview);
+        final InvoiceDetailsPreview preview = previews.get(position);
+        viewBinding = DataBindingUtil.inflate(inflater, R.layout.adapter_list_invoice_detail_preview, parent, false);
+        viewBinding.setPreview(preview);
 
-            ImageView imgDeletePreView = viewBinding.getRoot().findViewById(R.id.imgDeletePreView);
-            imgDeletePreView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    previews.remove(preview);
+        ImageView imgDeletePreView = viewBinding.getRoot().findViewById(R.id.imgDeletePreView);
+        imgDeletePreView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                previews.remove(preview);
+                if (bookDAO != null)
                     updateBookInDatabase(preview);
-                    notifyDataSetChanged();
-                }
-            });
-        }
+                if (detailsDAO != null)
+                    detailsDAO.deleteInvoiceDetails(Integer.parseInt(preview.getIdDetails()));
+                notifyDataSetChanged();
+            }
+        });
 
         return viewBinding.getRoot();
     }
@@ -88,6 +93,7 @@ public class ListInvoiceDetailsPreviewAdapter extends BaseAdapter {
 
 
     public static class InvoiceDetailsPreview {
+        private String idDetails;
         private Book book;
         private int amount;
         private float price, total;
@@ -97,6 +103,22 @@ public class ListInvoiceDetailsPreviewAdapter extends BaseAdapter {
             this.amount = amount;
             this.price = price;
             this.total = price * amount;
+        }
+
+        public InvoiceDetailsPreview(String idDetails, Book book, int amount, float price) {
+            this.idDetails = idDetails;
+            this.book = book;
+            this.amount = amount;
+            this.price = price;
+            this.total = price * amount;
+        }
+
+        public String getIdDetails() {
+            return idDetails;
+        }
+
+        public void setIdDetails(String idDetails) {
+            this.idDetails = idDetails;
         }
 
         public Book getBook() {

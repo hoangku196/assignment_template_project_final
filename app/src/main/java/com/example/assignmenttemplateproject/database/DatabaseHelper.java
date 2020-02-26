@@ -7,11 +7,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.assignmenttemplateproject.dao.BookDAO;
 import com.example.assignmenttemplateproject.dao.CategoryBookDAO;
 import com.example.assignmenttemplateproject.dao.InvoiceDAO;
+import com.example.assignmenttemplateproject.dao.InvoiceDetailsDAO;
 import com.example.assignmenttemplateproject.dao.UserDAO;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "assignment_template_project.db";
+    private static final String DATABASE_NAME = "assignment_template_project_final.db";
     private static final int VERSION = 1;
 
     public DatabaseHelper(Context context) {
@@ -24,6 +25,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CategoryBookDAO.SQL_CATEGORY);
         db.execSQL(BookDAO.SQL_BOOK);
         db.execSQL(InvoiceDAO.SQL_INVOICE);
+        db.execSQL(InvoiceDetailsDAO.SQL_INVOICE_DETAILS);
     }
 
     @Override

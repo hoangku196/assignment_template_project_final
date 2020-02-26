@@ -157,7 +157,11 @@
         android:id="@+id/createNewInvoiceDetails"
         android:name="com.example.assignmenttemplateproject.fragment.CreateNewInvoiceDetails"
         android:label="fragment_create_new_invoice_details"
-        tools:layout="@layout/fragment_create_new_invoice_details" />
+        tools:layout="@layout/fragment_create_new_invoice_details" >
+        <action
+            android:id="@+id/action_createNewInvoiceDetails_to_listInvoiceDetails"
+            app:destination="@id/listInvoiceDetails" />
+    </fragment>
     <fragment
         android:id="@+id/statistic"
         android:name="com.example.assignmenttemplateproject.fragment.Statistic"
@@ -168,4 +172,9 @@
         android:name="com.example.assignmenttemplateproject.fragment.BestSale"
         android:label="fragment_best_sale"
         tools:layout="@layout/fragment_best_sale" />
+    <fragment
+        android:id="@+id/listInvoiceDetails"
+        android:name="com.example.assignmenttemplateproject.fragment.ListInvoiceDetails"
+        android:label="fragment_list_invoice_details"
+        tools:layout="@layout/fragment_list_invoice_details" />
 </navigation>
