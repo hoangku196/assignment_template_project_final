@@ -28,6 +28,8 @@ public class Login extends Fragment {
 
     private final String FILE_NAME = "USER_FILE";
 
+    private static String USER;
+
     private EditText edUserName, edPassword;
     private CheckBox chkRememberPass;
     private Button btnLogin;
@@ -71,6 +73,7 @@ public class Login extends Fragment {
         } else {
             if (userDAO.login(userName, password)) {
                 rememberUser(userName, password, chkRememberPass.isChecked());
+                USER = userName;
                 Toast.makeText(getActivity(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                 NavHostFragment.findNavController(this).navigate(R.id.action_login_to_home2);
             }
@@ -117,6 +120,10 @@ public class Login extends Fragment {
             edPassword.setText(password);
         }
         chkRememberPass.setChecked(status);
+    }
+
+    public static String getUSER() {
+        return USER;
     }
 
     @Override

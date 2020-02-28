@@ -54,7 +54,8 @@
         tools:layout="@layout/fragment_create_new_user" >
         <action
             android:id="@+id/action_createNewUser_to_listUser2"
-            app:destination="@id/listUser2" />
+            app:destination="@id/listUser2"
+            />
     </fragment>
     <fragment
         android:id="@+id/listUser2"

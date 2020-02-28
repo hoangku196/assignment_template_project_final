@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.assignmenttemplateproject.R;
 import com.example.assignmenttemplateproject.dao.UserDAO;
+import com.example.assignmenttemplateproject.fragment.Login;
 import com.example.assignmenttemplateproject.model.User;
 
 import java.util.List;
@@ -54,10 +55,14 @@ public class ListUserAdapter extends RecyclerView.Adapter<ListUserAdapter.UserVi
         holder.ivDeleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (userDAO.deleteUser(user)) {
-                    Toast.makeText(holder.itemView.getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
-                    users.remove(user);
-                    notifyDataSetChanged();
+                if (!Login.getUSER().equals(user.getUserName())) {
+                    if (userDAO.deleteUser(user)) {
+                        Toast.makeText(holder.itemView.getContext(), "Xóa thành công", Toast.LENGTH_SHORT).show();
+                        users.remove(user);
+                        notifyDataSetChanged();
+                    }
+                } else {
+                    Toast.makeText(holder.itemView.getContext(), "Người dùng hiện đang đăng nhập", Toast.LENGTH_SHORT).show();
                 }
             }
         });

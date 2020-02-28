@@ -16,9 +16,9 @@ public class UserDAO {
     private SQLiteDatabase db;
     private DatabaseHelper dbHelper;
     public static final String SQL_USER = "CREATE TABLE USER(UserName TEXT PRIMARY KEY  NOT NULL, " +
-                                                            "Password TEXT              NOT NULL, " +
-                                                            "Phone    TEXT              NOT NULL, " +
-                                                            "FullName TEXT)";
+            "Password TEXT              NOT NULL, " +
+            "Phone    TEXT              NOT NULL, " +
+            "FullName TEXT)";
     public static final String TABLE_NAME = "USER";
     private final String TAG = this.getClass().getSimpleName();
 
@@ -41,6 +41,21 @@ public class UserDAO {
         }
 
         return true;
+    }
+
+    public boolean searchUser(String userName) {
+        int count = 0;
+        String sql = "SELECT * FROM USER WHERE userName = ?";
+        String[] selectionArgs = {userName};
+        Cursor cursor = db.rawQuery(sql, selectionArgs);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            count++;
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        return count > 0;
     }
 
     public List<User> getAllUser() {
